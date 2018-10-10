@@ -26,18 +26,43 @@ interface IPlanetUnity2
 public class PlanetUnity2 {
 	public int baseRenderQueue = 0;
 
+	public enum TextAlignment {
+		upperLeft,
+		upperCenter,
+		upperRight,
+		middleLeft,
+		middleCenter,
+		middleRight,
+		lowerLeft,
+		lowerCenter,
+		lowerRight,
+	};
+
 	public enum CanvasRenderMode {
 		ScreenSpaceOverlay,
 		ScreenSpaceCamera,
 		WorldSpace,
 	};
 
-	public enum TextOverflowVertical {
-		truncate,
+	public enum ImageType {
+		simple,
+		filled,
+		sliced,
+		tiled,
+		aspectFilled,
+	};
+
+	public enum TextOverflowHorizontal {
+		wrap,
 		overflow,
 	};
 
-	public enum TextAlignment {
+	public enum GridLayoutStartAxis {
+		horizontal,
+		vertical,
+	};
+
+	public enum GridLayoutChildAlignment {
 		upperLeft,
 		upperCenter,
 		upperRight,
@@ -69,6 +94,13 @@ public class PlanetUnity2 {
 		custom,
 	};
 
+	public enum GridLayoutStartCorner {
+		upperLeft,
+		upperRight,
+		lowerLeft,
+		lowerRight,
+	};
+
 	public enum AspectFitMode {
 		None,
 		WidthControlsHeight,
@@ -86,48 +118,12 @@ public class PlanetUnity2 {
 		Image,
 	};
 
-	public enum GridLayoutChildAlignment {
-		upperLeft,
-		upperCenter,
-		upperRight,
-		middleLeft,
-		middleCenter,
-		middleRight,
-		lowerLeft,
-		lowerCenter,
-		lowerRight,
-	};
-
-	public enum InputFieldLineType {
-		single,
-		multiSubmit,
-		multiNewline,
-	};
-
-	public enum GridLayoutStartAxis {
-		horizontal,
-		vertical,
-	};
-
-	public enum TextOverflowHorizontal {
-		wrap,
-		overflow,
-	};
-
 	public enum GridTableHeuristic {
 		RectBestShortSideFit,
 		RectBestLongSideFit,
 		RectBestAreaFit,
 		RectBottomLeftRule,
 		RectContactPointRule,
-	};
-
-	public enum ImageType {
-		simple,
-		filled,
-		sliced,
-		tiled,
-		aspectFilled,
 	};
 
 	public const string USERSTRINGINPUT = "UserStringInput";
@@ -139,6 +135,12 @@ public class PlanetUnity2 {
 	public const string EVENTWITHNOCOLLIDER = "EventWithNoCollider";
 	public const string EDITORFILEDIDCHANGE = "EditorFileDidChange";
 
+	public enum InputFieldLineType {
+		single,
+		multiSubmit,
+		multiNewline,
+	};
+
 	public enum SliderDirection {
 		LeftToRight,
 		RightToLeft,
@@ -146,11 +148,9 @@ public class PlanetUnity2 {
 		TopToBottom,
 	};
 
-	public enum GridLayoutStartCorner {
-		upperLeft,
-		upperRight,
-		lowerLeft,
-		lowerRight,
+	public enum TextOverflowVertical {
+		truncate,
+		overflow,
 	};
 
 
