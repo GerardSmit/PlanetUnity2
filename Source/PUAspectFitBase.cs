@@ -142,7 +142,9 @@ public class PUAspectFitBase : PUGameObject {
 
 
 	// XML Attributes
+	public string raw_contentSize;
 	public Vector2? contentSize;
+	public string raw_mode;
 	public PlanetUnity2.AspectFitMode? mode;
 
 
@@ -211,6 +213,25 @@ public class PUAspectFitBase : PUGameObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_contentSize;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0,0"; }
+		if(attr != null) { contentSize = new Vector2().PUParse(attr); } 
+		
+		attr = raw_mode;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "FitInParent"; }
+		if(attr != null) { mode = (PlanetUnity2.AspectFitMode)Enum.Parse(typeof(PlanetUnity2.AspectFitMode), attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -227,19 +248,9 @@ public class PUAspectFitBase : PUGameObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("contentSize");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0,0"; }
-		if(attr != null) { contentSize = new Vector2().PUParse(attr); } 
-		
-		attr = element.GetAttribute("mode");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "FitInParent"; }
-		if(attr != null) { mode = (PlanetUnity2.AspectFitMode)Enum.Parse(typeof(PlanetUnity2.AspectFitMode), attr); } 
-		
-
+		raw_contentSize = element.GetAttribute("contentSize");		
+		raw_mode = element.GetAttribute("mode");		
+		gaxb_loadattrs();
 	}
 
 

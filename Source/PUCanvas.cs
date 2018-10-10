@@ -14,13 +14,74 @@
  */
 using System.Xml;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+public class Variable
+{
+    private int _value;
+    private List<PUGameObject> _listening;
+
+    public Variable(string name)
+    {
+        Name = name;
+        _listening = new List<PUGameObject>();
+    }
+
+    public string Name { get; set; }
+
+    public int Value
+    {
+        get { return _value; }
+        set
+        {
+            if (value == _value)
+            {
+                return;
+            }
+
+            _value = value;
+
+            foreach (var obj in _listening)
+            {
+                obj.gaxb_loadattrs();
+            }
+        }
+    }
+
+    public void AddListener(PUGameObject obj)
+    {
+        if (!_listening.Contains(obj))
+        {
+            _listening.Add(obj);
+        }
+    }
+}
 
 public partial class PUCanvas : PUCanvasBase {
 
 	public Canvas canvas;
 	public GraphicRaycaster graphicRaycaster;
+    private Dictionary<string, Variable> variables = new Dictionary<string, Variable>();
+
+    public Variable GetVariable(string name)
+    {
+        Variable variable;
+
+        if (!variables.TryGetValue(name, out variable))
+        {
+            variable = new Variable(name);
+            variables.Add(name, variable);
+        }
+
+        return variable;
+    }
+
+    public IEnumerable<Variable> GetVariables()
+    {
+        return variables.Values;
+    }
 
 	public override void gaxb_init ()
 	{

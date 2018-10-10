@@ -141,7 +141,9 @@ public class PUColorButtonBase : PUColor {
 
 
 	// XML Attributes
+	public string raw_onTouchUp;
 	public string onTouchUp;
+	public string raw_pressedColor;
 	public Color? pressedColor;
 
 
@@ -210,6 +212,23 @@ public class PUColorButtonBase : PUColor {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_onTouchUp;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { onTouchUp = unescape(attr); } 
+		
+		attr = raw_pressedColor;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { pressedColor = new Color().PUParse(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -226,17 +245,9 @@ public class PUColorButtonBase : PUColor {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("onTouchUp");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { onTouchUp = unescape(attr); } 
-		
-		attr = element.GetAttribute("pressedColor");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { pressedColor = new Color().PUParse(attr); } 
-		
-
+		raw_onTouchUp = element.GetAttribute("onTouchUp");		
+		raw_pressedColor = element.GetAttribute("pressedColor");		
+		gaxb_loadattrs();
 	}
 
 

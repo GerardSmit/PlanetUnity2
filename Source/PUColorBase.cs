@@ -129,6 +129,7 @@ public class PUColorBase : PUGameObject {
 
 
 	// XML Attributes
+	public string raw_color;
 	public Color? color;
 
 
@@ -197,6 +198,19 @@ public class PUColorBase : PUGameObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_color;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { color = new Color().PUParse(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -213,13 +227,8 @@ public class PUColorBase : PUGameObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("color");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { color = new Color().PUParse(attr); } 
-		
-
+		raw_color = element.GetAttribute("color");		
+		gaxb_loadattrs();
 	}
 
 

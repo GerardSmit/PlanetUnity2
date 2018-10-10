@@ -147,9 +147,13 @@ public class PUMovieBase : PUGameObject {
 
 
 	// XML Attributes
+	public string raw_hasAlpha;
 	public bool hasAlpha;
+	public string raw_looping;
 	public bool looping;
+	public string raw_resourcePath;
 	public string resourcePath;
+	public string raw_color;
 	public Color? color;
 
 
@@ -218,6 +222,31 @@ public class PUMovieBase : PUGameObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_hasAlpha;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { hasAlpha = bool.Parse(attr); } 
+		
+		attr = raw_looping;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { looping = bool.Parse(attr); } 
+		
+		attr = raw_resourcePath;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { resourcePath = unescape(attr); } 
+		
+		attr = raw_color;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { color = new Color().PUParse(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -234,25 +263,11 @@ public class PUMovieBase : PUGameObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("hasAlpha");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { hasAlpha = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("looping");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { looping = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("resourcePath");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { resourcePath = unescape(attr); } 
-		
-		attr = element.GetAttribute("color");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { color = new Color().PUParse(attr); } 
-		
-
+		raw_hasAlpha = element.GetAttribute("hasAlpha");		
+		raw_looping = element.GetAttribute("looping");		
+		raw_resourcePath = element.GetAttribute("resourcePath");		
+		raw_color = element.GetAttribute("color");		
+		gaxb_loadattrs();
 	}
 
 

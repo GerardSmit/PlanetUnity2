@@ -172,12 +172,19 @@ public class PUGridLayoutGroupBase : PUGameObject {
 
 
 	// XML Attributes
+	public string raw_cellSize;
 	public Vector2? cellSize;
+	public string raw_spacing;
 	public Vector2? spacing;
+	public string raw_startCorner;
 	public PlanetUnity2.GridLayoutStartCorner? startCorner;
+	public string raw_startAxis;
 	public PlanetUnity2.GridLayoutStartAxis? startAxis;
+	public string raw_childAlignment;
 	public PlanetUnity2.GridLayoutChildAlignment? childAlignment;
+	public string raw_fixedRows;
 	public int? fixedRows;
+	public string raw_fixedColumns;
 	public int? fixedColumns;
 
 
@@ -246,6 +253,45 @@ public class PUGridLayoutGroupBase : PUGameObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_cellSize;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "100,100"; }
+		if(attr != null) { cellSize = new Vector2().PUParse(attr); } 
+		
+		attr = raw_spacing;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0,0"; }
+		if(attr != null) { spacing = new Vector2().PUParse(attr); } 
+		
+		attr = raw_startCorner;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { startCorner = (PlanetUnity2.GridLayoutStartCorner)Enum.Parse(typeof(PlanetUnity2.GridLayoutStartCorner), attr); } 
+		
+		attr = raw_startAxis;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { startAxis = (PlanetUnity2.GridLayoutStartAxis)Enum.Parse(typeof(PlanetUnity2.GridLayoutStartAxis), attr); } 
+		
+		attr = raw_childAlignment;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { childAlignment = (PlanetUnity2.GridLayoutChildAlignment)Enum.Parse(typeof(PlanetUnity2.GridLayoutChildAlignment), attr); } 
+		
+		attr = raw_fixedRows;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { fixedRows = (int)float.Parse(attr); } 
+		
+		attr = raw_fixedColumns;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { fixedColumns = (int)float.Parse(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -262,39 +308,14 @@ public class PUGridLayoutGroupBase : PUGameObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("cellSize");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "100,100"; }
-		if(attr != null) { cellSize = new Vector2().PUParse(attr); } 
-		
-		attr = element.GetAttribute("spacing");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0,0"; }
-		if(attr != null) { spacing = new Vector2().PUParse(attr); } 
-		
-		attr = element.GetAttribute("startCorner");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { startCorner = (PlanetUnity2.GridLayoutStartCorner)Enum.Parse(typeof(PlanetUnity2.GridLayoutStartCorner), attr); } 
-		
-		attr = element.GetAttribute("startAxis");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { startAxis = (PlanetUnity2.GridLayoutStartAxis)Enum.Parse(typeof(PlanetUnity2.GridLayoutStartAxis), attr); } 
-		
-		attr = element.GetAttribute("childAlignment");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { childAlignment = (PlanetUnity2.GridLayoutChildAlignment)Enum.Parse(typeof(PlanetUnity2.GridLayoutChildAlignment), attr); } 
-		
-		attr = element.GetAttribute("fixedRows");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { fixedRows = (int)float.Parse(attr); } 
-		
-		attr = element.GetAttribute("fixedColumns");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { fixedColumns = (int)float.Parse(attr); } 
-		
-
+		raw_cellSize = element.GetAttribute("cellSize");		
+		raw_spacing = element.GetAttribute("spacing");		
+		raw_startCorner = element.GetAttribute("startCorner");		
+		raw_startAxis = element.GetAttribute("startAxis");		
+		raw_childAlignment = element.GetAttribute("childAlignment");		
+		raw_fixedRows = element.GetAttribute("fixedRows");		
+		raw_fixedColumns = element.GetAttribute("fixedColumns");		
+		gaxb_loadattrs();
 	}
 
 

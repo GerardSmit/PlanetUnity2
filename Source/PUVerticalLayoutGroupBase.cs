@@ -148,8 +148,11 @@ public class PUVerticalLayoutGroupBase : PUGameObject {
 
 
 	// XML Attributes
+	public string raw_spacing;
 	public float? spacing;
+	public string raw_padding;
 	public Vector4? padding;
+	public string raw_childAlignment;
 	public PlanetUnity2.GridLayoutChildAlignment? childAlignment;
 
 
@@ -218,6 +221,29 @@ public class PUVerticalLayoutGroupBase : PUGameObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_spacing;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0"; }
+		if(attr != null) { spacing = float.Parse(attr); } 
+		
+		attr = raw_padding;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0,0,0,0"; }
+		if(attr != null) { padding = new Vector4().PUParse(attr); } 
+		
+		attr = raw_childAlignment;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { childAlignment = (PlanetUnity2.GridLayoutChildAlignment)Enum.Parse(typeof(PlanetUnity2.GridLayoutChildAlignment), attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -234,23 +260,10 @@ public class PUVerticalLayoutGroupBase : PUGameObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("spacing");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0"; }
-		if(attr != null) { spacing = float.Parse(attr); } 
-		
-		attr = element.GetAttribute("padding");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0,0,0,0"; }
-		if(attr != null) { padding = new Vector4().PUParse(attr); } 
-		
-		attr = element.GetAttribute("childAlignment");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { childAlignment = (PlanetUnity2.GridLayoutChildAlignment)Enum.Parse(typeof(PlanetUnity2.GridLayoutChildAlignment), attr); } 
-		
-
+		raw_spacing = element.GetAttribute("spacing");		
+		raw_padding = element.GetAttribute("padding");		
+		raw_childAlignment = element.GetAttribute("childAlignment");		
+		gaxb_loadattrs();
 	}
 
 

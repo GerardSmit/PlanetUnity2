@@ -317,7 +317,10 @@ public partial class PUGameObject : PUGameObjectBase {
 	public virtual void unloadAllChildren(){
 		for(int i = children.Count-1; i >= 0; i--) {
 			PUGameObject p = children [i] as PUGameObject;
-			p.unload ();
+		    if (p != null)
+		    {
+		        p.unload();
+		    }
 		}
 		children.Clear ();
 	}
@@ -326,7 +329,17 @@ public partial class PUGameObject : PUGameObjectBase {
 		SetAnchor (anchor);
 	}
 
-	public void UpdateRectTransform() {
+    public override void gaxb_loadattrs()
+    {
+        base.gaxb_loadattrs();
+
+        if (gameObject != null)
+        {
+            UpdateRectTransform();
+        }
+    }
+
+    public void UpdateRectTransform() {
 
 		rectTransform = gameObject.GetComponent<RectTransform> ();
 		if (rectTransform != null) {
@@ -440,7 +453,7 @@ public partial class PUGameObject : PUGameObjectBase {
 		// Sanity check to make sure this wasn't called multiple times
 		if (gameObject == null) {
 			gaxb_load (null, null, null);
-			gaxb_init ();
+            gaxb_init ();
 			gaxb_final (null, _parent, null);
 		}
 
@@ -474,7 +487,7 @@ public partial class PUGameObject : PUGameObjectBase {
 		// Sanity check to make sure this wasn't called multiple times
 		if (gameObject == null) {
 			gaxb_load (null, null, null);
-			gaxb_init ();
+            gaxb_init ();
 			gaxb_final (null, null, null);
 		}
 

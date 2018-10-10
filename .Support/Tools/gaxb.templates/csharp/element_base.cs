@@ -163,6 +163,7 @@ public class <%= FULL_NAME_CAMEL %> : <%= superclassForItem(this) %> {
 	// XML Attributes
 <%
 for k,v in pairs(this.attributes) do
+	gaxb_print("\tpublic string raw_"..v.name..";\n")
 	gaxb_print("\tpublic "..nullableTypeForItem(v).." "..v.name..";\n")
 end
 if (this.mixedContent == true) then
@@ -258,32 +259,19 @@ end
 		return returnString;
 	}
 
-	public <%=NEW_KEYWORD%>void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
+	public <%=NEW_KEYWORD%>void gaxb_loadattrs()
 	{
 <%		if(hasSuperclass(this)) then
-			gaxb_print("\t\tbase.gaxb_load(element, _parent, args);\n")
+			gaxb_print("\t\tbase.gaxb_loadattrs();\n")
 		end
 %>
-		if(element == null && _parent == null)
-			return;
-
-		parent = _parent;
-
-		if(this.GetType() == typeof( <%= FULL_NAME_CAMEL_NON_BASE %> ))
-		{
-			gaxb_addToParent();
-		}
-
-		//xmlns = element.GetAttribute("xmlns");
-
 <%
-		if (# this.attributes > 0) then
+	if (# this.attributes > 0) then
 			gaxb_print("\n\t\tstring attr;\n")
 		end
 		for k,v in pairs(this.attributes) do
-			gaxb_print("\t\tattr = element.GetAttribute(\""..v.originalName.."\");\n")
-
-			gaxb_print('\t\tif(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }\n');
+			gaxb_print("\t\tattr = raw_" ..v.name.. ";\n")
+			gaxb_print('\t\tif(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }\n');
 
 			if (v.default ~= nil) then
 				if (v.default == "UUID_REGISTER") then
@@ -325,7 +313,34 @@ end
 
 			gaxb_print("\t\t\n")
 		end
-		%>
+%>
+	}
+
+	public <%=NEW_KEYWORD%>void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
+	{
+<%		if(hasSuperclass(this)) then
+			gaxb_print("\t\tbase.gaxb_load(element, _parent, args);\n")
+		end
+%>
+		if(element == null && _parent == null)
+			return;
+
+		parent = _parent;
+
+		if(this.GetType() == typeof( <%= FULL_NAME_CAMEL_NON_BASE %> ))
+		{
+			gaxb_addToParent();
+		}
+
+		//xmlns = element.GetAttribute("xmlns");
+
+<%
+		for k,v in pairs(this.attributes) do
+			gaxb_print("\t\traw_" ..v.name.. " = element.GetAttribute(\""..v.originalName.."\");")
+			gaxb_print("\t\t\n")
+		end
+		gaxb_print("\t\tgaxb_loadattrs();")
+%>
 	}
 
 

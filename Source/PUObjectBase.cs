@@ -67,13 +67,21 @@ public class PUObjectBase : IPlanetUnity2 {
 
 
 	// XML Attributes
+	public string raw_title;
 	public string title;
+	public string raw_tag;
 	public string tag;
+	public string raw_tag1;
 	public string tag1;
+	public string raw_tag2;
 	public string tag2;
+	public string raw_tag3;
 	public string tag3;
+	public string raw_tag4;
 	public string tag4;
+	public string raw_tag5;
 	public string tag5;
+	public string raw_tag6;
 	public string tag6;
 
 
@@ -145,6 +153,46 @@ public class PUObjectBase : IPlanetUnity2 {
 		return returnString;
 	}
 
+	public virtual void gaxb_loadattrs()
+	{
+
+
+		string attr;
+		attr = raw_title;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { title = unescape(attr); } 
+		
+		attr = raw_tag;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { tag = unescape(attr); } 
+		
+		attr = raw_tag1;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { tag1 = unescape(attr); } 
+		
+		attr = raw_tag2;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { tag2 = unescape(attr); } 
+		
+		attr = raw_tag3;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { tag3 = unescape(attr); } 
+		
+		attr = raw_tag4;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { tag4 = unescape(attr); } 
+		
+		attr = raw_tag5;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { tag5 = unescape(attr); } 
+		
+		attr = raw_tag6;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { tag6 = unescape(attr); } 
+		
+
+	}
+
 	public virtual void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 
@@ -160,41 +208,15 @@ public class PUObjectBase : IPlanetUnity2 {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("title");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { title = unescape(attr); } 
-		
-		attr = element.GetAttribute("tag");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { tag = unescape(attr); } 
-		
-		attr = element.GetAttribute("tag1");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { tag1 = unescape(attr); } 
-		
-		attr = element.GetAttribute("tag2");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { tag2 = unescape(attr); } 
-		
-		attr = element.GetAttribute("tag3");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { tag3 = unescape(attr); } 
-		
-		attr = element.GetAttribute("tag4");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { tag4 = unescape(attr); } 
-		
-		attr = element.GetAttribute("tag5");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { tag5 = unescape(attr); } 
-		
-		attr = element.GetAttribute("tag6");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { tag6 = unescape(attr); } 
-		
-
+		raw_title = element.GetAttribute("title");		
+		raw_tag = element.GetAttribute("tag");		
+		raw_tag1 = element.GetAttribute("tag1");		
+		raw_tag2 = element.GetAttribute("tag2");		
+		raw_tag3 = element.GetAttribute("tag3");		
+		raw_tag4 = element.GetAttribute("tag4");		
+		raw_tag5 = element.GetAttribute("tag5");		
+		raw_tag6 = element.GetAttribute("tag6");		
+		gaxb_loadattrs();
 	}
 
 

@@ -28,9 +28,10 @@ public partial class PUObject : PUObjectBase {
 	public float UserFloat1;
 	public float UserFloat2;
 	public float UserFloat3;
+    private PUCanvas _canvas;
 
 
-	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
+    public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
 	}
@@ -141,5 +142,18 @@ public partial class PUObject : PUObjectBase {
 	{
 		return false;
 	}
+
+    public PUCanvas Canvas
+    {
+        get
+        {
+            if (_canvas == null)
+            {
+                _canvas = Scope() as PUCanvas;
+            }
+
+            return _canvas;
+        }
+    }
 
 }

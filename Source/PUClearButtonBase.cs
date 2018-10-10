@@ -129,6 +129,7 @@ public class PUClearButtonBase : PUGameObject {
 
 
 	// XML Attributes
+	public string raw_onTouchUp;
 	public string onTouchUp;
 
 
@@ -197,6 +198,19 @@ public class PUClearButtonBase : PUGameObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_onTouchUp;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { onTouchUp = unescape(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -213,13 +227,8 @@ public class PUClearButtonBase : PUGameObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("onTouchUp");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { onTouchUp = unescape(attr); } 
-		
-
+		raw_onTouchUp = element.GetAttribute("onTouchUp");		
+		gaxb_loadattrs();
 	}
 
 

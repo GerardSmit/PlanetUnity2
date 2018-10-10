@@ -78,8 +78,8 @@
 				<attribute name="rotation" type="planet:vec3" use="optional" default="0,0,0" />
 				<attribute name="scale" type="planet:vec3" use="optional" default="1,1,1" />
 				
-				<attribute name="pivot" type="planet:vec2" use="optional" default="0,0" />
-				<attribute name="anchor" type="string" use="optional" default="bottom,left"/>
+				<attribute name="pivot" type="planet:vec2" use="optional" default="0,1" />
+				<attribute name="anchor" type="string" use="optional" default="top,left"/>
 				
 				<attribute name="active" type="boolean" use="optional" default="true" />
 				
@@ -522,6 +522,15 @@
 	
 	<!-- ***************************************************************************************** -->
 	
+	<element name="Variable" type="planet:Variable" />
+	<complexType name="Variable">
+		<complexContent>
+			<extension base="planet:Object">
+				<attribute name="key" type="string" use="required" />
+				<attribute name="value" type="string" use="required" />
+			</extension>
+		</complexContent>
+	</complexType>
 	
 	<element name="Notification" type="planet:Notification" />
 	<complexType name="Notification">

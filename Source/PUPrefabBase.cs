@@ -129,6 +129,7 @@ public class PUPrefabBase : PUGameObject {
 
 
 	// XML Attributes
+	public string raw_name;
 	public string name;
 
 
@@ -197,6 +198,19 @@ public class PUPrefabBase : PUGameObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_name;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { name = unescape(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -213,13 +227,8 @@ public class PUPrefabBase : PUGameObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("name");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { name = unescape(attr); } 
-		
-
+		raw_name = element.GetAttribute("name");		
+		gaxb_loadattrs();
 	}
 
 

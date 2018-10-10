@@ -16,83 +16,43 @@ using System.Collections;
 using System.Security;
 using TB;
 
-public partial class PUNotification : PUNotificationBase {
+public partial class PUStyle : PUStyleBase {
 
-	public PUNotification()
+	public PUStyle()
 	{
 	}
 	
-
-	public PUNotification(
-			string name ) : this()
-	{
-		this.name = name;
-	}
-
 	
-
-	public PUNotification(
-			string name,
-			string title,
-			string tag,
-			string tag1,
-			string tag2,
-			string tag3,
-			string tag4,
-			string tag5,
-			string tag6 ) : this()
-	{
-		this.name = name;
-
-		this.title = title;
-
-		this.tag = tag;
-
-		this.tag1 = tag1;
-
-		this.tag2 = tag2;
-
-		this.tag3 = tag3;
-
-		this.tag4 = tag4;
-
-		this.tag5 = tag5;
-
-		this.tag6 = tag6;
-	}
-
 
 }
 
 
 
 
-public class PUNotificationBase : PUObject {
+public class PUStyleBase : IPlanetUnity2 {
 
 
 
-
+	public object parent;
+	public string xmlns = "http://schema.smallplanet.com/PlanetUnity2";
 
 
 	// XML Attributes
-	public string raw_name;
-	public string name;
 
 
 
 
-	public override void gaxb_unload()
+	public virtual void gaxb_unload()
 	{
-		base.gaxb_unload();
 
 	}
 
-	public new void gaxb_addToParent()
+	public void gaxb_addToParent()
 
 	{
 		if(parent != null)
 		{
-			FieldInfo parentField = parent.GetType().GetField("Notification");
+			FieldInfo parentField = parent.GetType().GetField("Style");
 			List<object> parentChildren = null;
 
 			if(parentField != null)
@@ -101,7 +61,7 @@ public class PUNotificationBase : PUObject {
 			}
 			else
 			{
-				parentField = parent.GetType().GetField("Notifications");
+				parentField = parent.GetType().GetField("Styles");
 
 				if(parentField != null)
 				{
@@ -109,7 +69,7 @@ public class PUNotificationBase : PUObject {
 				}
 				else
 				{
-					parentField = parent.GetType().GetField("Objects");
+					parentField = parent.GetType().GetField("PlanetUnity2s");
 					if(parentField != null)
 					{
 						parentChildren = (List<object>)(parentField.GetValue(parent));
@@ -144,37 +104,22 @@ public class PUNotificationBase : PUObject {
 		return returnString;
 	}
 
-	public override void gaxb_loadattrs()
+	public virtual void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
-		base.gaxb_loadattrs();
-
-
-		string attr;
-		attr = raw_name;
-		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
-		if(attr != null) { name = unescape(attr); } 
-		
-
-	}
-
-	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
-	{
-		base.gaxb_load(element, _parent, args);
 
 		if(element == null && _parent == null)
 			return;
 
 		parent = _parent;
 
-		if(this.GetType() == typeof( PUNotification ))
+		if(this.GetType() == typeof( PUStyle ))
 		{
 			gaxb_addToParent();
 		}
 
 		//xmlns = element.GetAttribute("xmlns");
 
-		raw_name = element.GetAttribute("name");		
-		gaxb_loadattrs();
+
 	}
 
 
@@ -183,29 +128,26 @@ public class PUNotificationBase : PUObject {
 
 
 
-	public override void gaxb_appendXMLAttributes(StringBuilder sb)
+	public virtual void gaxb_appendXMLAttributes(StringBuilder sb)
 	{
-		base.gaxb_appendXMLAttributes(sb);
 
-		if(name != null) { sb.AppendFormat (" {0}=\"{1}\"", "name", SecurityElement.Escape (name)); }
 
 	}
 
-	public override void gaxb_appendXMLSequences(StringBuilder sb)
+	public virtual void gaxb_appendXMLSequences(StringBuilder sb)
 	{
-		base.gaxb_appendXMLSequences(sb);
 
 
 	}
 
-	public override void gaxb_appendXML(StringBuilder sb)
+	public virtual void gaxb_appendXML(StringBuilder sb)
 	{
 		if(sb.Length == 0)
 		{
 			sb.AppendFormat ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		}
 
-		sb.AppendFormat ("<{0}", "Notification");
+		sb.AppendFormat ("<{0}", "Style");
 
 		if(xmlns != null) {
 			if(parent == null) {
@@ -232,7 +174,7 @@ public class PUNotificationBase : PUObject {
 		}
 		else
 		{
-			sb.AppendFormat (">{0}</{1}>", seq.ToString(), "Notification");
+			sb.AppendFormat (">{0}</{1}>", seq.ToString(), "Style");
 		}
 	}
 }

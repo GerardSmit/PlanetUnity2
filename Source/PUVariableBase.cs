@@ -16,58 +16,27 @@ using System.Collections;
 using System.Security;
 using TB;
 
-public partial class PUCanvas : PUCanvasBase {
+public partial class PUVariable : PUVariableBase {
 
-	public PUCanvas()
+	public PUVariable()
 	{
-		string attr;
-
-		attr = "ScreenSpaceOverlay";
-		if(attr != null) { renderMode = (PlanetUnity2.CanvasRenderMode)Enum.Parse(typeof(PlanetUnity2.CanvasRenderMode), attr); } 
-		attr = "false";
-		if(attr != null) { pixelPerfect = bool.Parse(attr); } 
-		attr = "100";
-		if(attr != null) { planeDistance = float.Parse(attr); } 
-
 	}
 	
 
-	public PUCanvas(
-			PlanetUnity2.CanvasRenderMode renderMode,
-			bool pixelPerfect,
-			float planeDistance ) : this()
+	public PUVariable(
+			string key,
+			string value ) : this()
 	{
-		this.renderMode = renderMode;
+		this.key = key;
 
-		this.pixelPerfect = pixelPerfect;
-
-		this.planeDistance = planeDistance;
+		this.value = value;
 	}
 
 	
 
-	public PUCanvas(
-			PlanetUnity2.CanvasRenderMode renderMode,
-			bool pixelPerfect,
-			float planeDistance,
-			Vector4 bounds,
-			Vector3 position,
-			Vector2 size,
-			Vector3 rotation,
-			Vector3 scale,
-			Vector2 pivot,
-			string anchor,
-			bool active,
-			bool rectMask2D,
-			bool mask,
-			bool showMaskGraphic,
-			Vector4 maskInset,
-			bool outline,
-			float lastY,
-			float lastX,
-			string shader,
-			bool ignoreMouse,
-			string components,
+	public PUVariable(
+			string key,
+			string value,
 			string title,
 			string tag,
 			string tag1,
@@ -77,47 +46,9 @@ public partial class PUCanvas : PUCanvasBase {
 			string tag5,
 			string tag6 ) : this()
 	{
-		this.renderMode = renderMode;
+		this.key = key;
 
-		this.pixelPerfect = pixelPerfect;
-
-		this.planeDistance = planeDistance;
-
-		this.bounds = bounds;
-
-		this.position = position;
-
-		this.size = size;
-
-		this.rotation = rotation;
-
-		this.scale = scale;
-
-		this.pivot = pivot;
-
-		this.anchor = anchor;
-
-		this.active = active;
-
-		this.rectMask2D = rectMask2D;
-
-		this.mask = mask;
-
-		this.showMaskGraphic = showMaskGraphic;
-
-		this.maskInset = maskInset;
-
-		this.outline = outline;
-
-		this.lastY = lastY;
-
-		this.lastX = lastX;
-
-		this.shader = shader;
-
-		this.ignoreMouse = ignoreMouse;
-
-		this.components = components;
+		this.value = value;
 
 		this.title = title;
 
@@ -142,7 +73,7 @@ public partial class PUCanvas : PUCanvasBase {
 
 
 
-public class PUCanvasBase : PUGameObject {
+public class PUVariableBase : PUObject {
 
 
 
@@ -150,12 +81,10 @@ public class PUCanvasBase : PUGameObject {
 
 
 	// XML Attributes
-	public string raw_renderMode;
-	public PlanetUnity2.CanvasRenderMode? renderMode;
-	public string raw_pixelPerfect;
-	public bool pixelPerfect;
-	public string raw_planeDistance;
-	public float? planeDistance;
+	public string raw_key;
+	public string key;
+	public string raw_value;
+	public string value;
 
 
 
@@ -171,7 +100,7 @@ public class PUCanvasBase : PUGameObject {
 	{
 		if(parent != null)
 		{
-			FieldInfo parentField = parent.GetType().GetField("Canvas");
+			FieldInfo parentField = parent.GetType().GetField("Variable");
 			List<object> parentChildren = null;
 
 			if(parentField != null)
@@ -180,7 +109,7 @@ public class PUCanvasBase : PUGameObject {
 			}
 			else
 			{
-				parentField = parent.GetType().GetField("Canvass");
+				parentField = parent.GetType().GetField("Variables");
 
 				if(parentField != null)
 				{
@@ -188,7 +117,7 @@ public class PUCanvasBase : PUGameObject {
 				}
 				else
 				{
-					parentField = parent.GetType().GetField("GameObjects");
+					parentField = parent.GetType().GetField("Objects");
 					if(parentField != null)
 					{
 						parentChildren = (List<object>)(parentField.GetValue(parent));
@@ -229,20 +158,13 @@ public class PUCanvasBase : PUGameObject {
 
 
 		string attr;
-		attr = raw_renderMode;
+		attr = raw_key;
 		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
-		if(attr == null) { attr = "ScreenSpaceOverlay"; }
-		if(attr != null) { renderMode = (PlanetUnity2.CanvasRenderMode)Enum.Parse(typeof(PlanetUnity2.CanvasRenderMode), attr); } 
+		if(attr != null) { key = unescape(attr); } 
 		
-		attr = raw_pixelPerfect;
+		attr = raw_value;
 		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
-		if(attr == null) { attr = "false"; }
-		if(attr != null) { pixelPerfect = bool.Parse(attr); } 
-		
-		attr = raw_planeDistance;
-		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
-		if(attr == null) { attr = "100"; }
-		if(attr != null) { planeDistance = float.Parse(attr); } 
+		if(attr != null) { value = unescape(attr); } 
 		
 
 	}
@@ -256,16 +178,15 @@ public class PUCanvasBase : PUGameObject {
 
 		parent = _parent;
 
-		if(this.GetType() == typeof( PUCanvas ))
+		if(this.GetType() == typeof( PUVariable ))
 		{
 			gaxb_addToParent();
 		}
 
 		//xmlns = element.GetAttribute("xmlns");
 
-		raw_renderMode = element.GetAttribute("renderMode");		
-		raw_pixelPerfect = element.GetAttribute("pixelPerfect");		
-		raw_planeDistance = element.GetAttribute("planeDistance");		
+		raw_key = element.GetAttribute("key");		
+		raw_value = element.GetAttribute("value");		
 		gaxb_loadattrs();
 	}
 
@@ -279,9 +200,8 @@ public class PUCanvasBase : PUGameObject {
 	{
 		base.gaxb_appendXMLAttributes(sb);
 
-		if(renderMode != null) { sb.AppendFormat (" {0}=\"{1}\"", "renderMode", (int)renderMode); }
-		 sb.AppendFormat (" {0}=\"{1}\"", "pixelPerfect", pixelPerfect.ToString().ToLower()); 
-		if(planeDistance != null) { sb.AppendFormat (" {0}=\"{1}\"", "planeDistance", planeDistance.Value.ToString ("0.##")); }
+		if(key != null) { sb.AppendFormat (" {0}=\"{1}\"", "key", SecurityElement.Escape (key)); }
+		if(value != null) { sb.AppendFormat (" {0}=\"{1}\"", "value", SecurityElement.Escape (value)); }
 
 	}
 
@@ -299,7 +219,7 @@ public class PUCanvasBase : PUGameObject {
 			sb.AppendFormat ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		}
 
-		sb.AppendFormat ("<{0}", "Canvas");
+		sb.AppendFormat ("<{0}", "Variable");
 
 		if(xmlns != null) {
 			if(parent == null) {
@@ -326,7 +246,7 @@ public class PUCanvasBase : PUGameObject {
 		}
 		else
 		{
-			sb.AppendFormat (">{0}</{1}>", seq.ToString(), "Canvas");
+			sb.AppendFormat (">{0}</{1}>", seq.ToString(), "Variable");
 		}
 	}
 }

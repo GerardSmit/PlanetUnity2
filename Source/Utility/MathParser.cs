@@ -23,6 +23,7 @@ namespace Mathos.Parser
     /// </summary>
     public class MathParser
     {
+        public List<string> usedTokens = new List<string>();
 
 		static public float step(float a, float b){
 			if (b > a) {
@@ -426,7 +427,14 @@ namespace Mathos.Parser
             {
                 if (LocalVariables.Keys.Contains(_tokens[i]))
                 {
-                    _tokens[i] = LocalVariables[_tokens[i]].ToString();
+                    var token = _tokens[i];
+
+                    if (!usedTokens.Contains(token))
+                    {
+                        usedTokens.Add(token);
+                    }
+
+                    _tokens[i] = LocalVariables[token].ToString();
                 }
             }
             while (_tokens.IndexOf("(") != -1)

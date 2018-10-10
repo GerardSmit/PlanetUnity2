@@ -134,6 +134,7 @@ public class PUSwitcherBase : PUGameObject {
 
 
 	// XML Attributes
+	public string raw_currentIndex;
 	public int? currentIndex;
 
 
@@ -202,6 +203,20 @@ public class PUSwitcherBase : PUGameObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_currentIndex;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0"; }
+		if(attr != null) { currentIndex = (int)float.Parse(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -218,14 +233,8 @@ public class PUSwitcherBase : PUGameObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("currentIndex");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0"; }
-		if(attr != null) { currentIndex = (int)float.Parse(attr); } 
-		
-
+		raw_currentIndex = element.GetAttribute("currentIndex");		
+		gaxb_loadattrs();
 	}
 
 

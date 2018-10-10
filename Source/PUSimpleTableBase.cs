@@ -168,9 +168,13 @@ public class PUSimpleTableBase : PUScrollRect {
 
 
 	// XML Attributes
+	public string raw_cellSize;
 	public Vector2? cellSize;
+	public string raw_headerSize;
 	public Vector2? headerSize;
+	public string raw_asynchronous;
 	public bool asynchronous;
+	public string raw_expandCellWidth;
 	public bool expandCellWidth;
 
 
@@ -239,6 +243,34 @@ public class PUSimpleTableBase : PUScrollRect {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_cellSize;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { cellSize = new Vector2().PUParse(attr); } 
+		
+		attr = raw_headerSize;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0,0"; }
+		if(attr != null) { headerSize = new Vector2().PUParse(attr); } 
+		
+		attr = raw_asynchronous;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "true"; }
+		if(attr != null) { asynchronous = bool.Parse(attr); } 
+		
+		attr = raw_expandCellWidth;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "true"; }
+		if(attr != null) { expandCellWidth = bool.Parse(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -255,28 +287,11 @@ public class PUSimpleTableBase : PUScrollRect {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("cellSize");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { cellSize = new Vector2().PUParse(attr); } 
-		
-		attr = element.GetAttribute("headerSize");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0,0"; }
-		if(attr != null) { headerSize = new Vector2().PUParse(attr); } 
-		
-		attr = element.GetAttribute("asynchronous");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "true"; }
-		if(attr != null) { asynchronous = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("expandCellWidth");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "true"; }
-		if(attr != null) { expandCellWidth = bool.Parse(attr); } 
-		
-
+		raw_cellSize = element.GetAttribute("cellSize");		
+		raw_headerSize = element.GetAttribute("headerSize");		
+		raw_asynchronous = element.GetAttribute("asynchronous");		
+		raw_expandCellWidth = element.GetAttribute("expandCellWidth");		
+		gaxb_loadattrs();
 	}
 
 

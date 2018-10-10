@@ -154,7 +154,9 @@ public class PUGridTableBase : PUTable {
 
 
 	// XML Attributes
+	public string raw_heuristic;
 	public PlanetUnity2.GridTableHeuristic? heuristic;
+	public string raw_expandToFill;
 	public bool expandToFill;
 
 
@@ -223,6 +225,25 @@ public class PUGridTableBase : PUTable {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_heuristic;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "RectBottomLeftRule"; }
+		if(attr != null) { heuristic = (PlanetUnity2.GridTableHeuristic)Enum.Parse(typeof(PlanetUnity2.GridTableHeuristic), attr); } 
+		
+		attr = raw_expandToFill;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "true"; }
+		if(attr != null) { expandToFill = bool.Parse(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -239,19 +260,9 @@ public class PUGridTableBase : PUTable {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("heuristic");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "RectBottomLeftRule"; }
-		if(attr != null) { heuristic = (PlanetUnity2.GridTableHeuristic)Enum.Parse(typeof(PlanetUnity2.GridTableHeuristic), attr); } 
-		
-		attr = element.GetAttribute("expandToFill");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "true"; }
-		if(attr != null) { expandToFill = bool.Parse(attr); } 
-		
-
+		raw_heuristic = element.GetAttribute("heuristic");		
+		raw_expandToFill = element.GetAttribute("expandToFill");		
+		gaxb_loadattrs();
 	}
 
 

@@ -105,7 +105,20 @@ public class PlanetUnityOverride {
 		GameObject parentAsGameObject = o as GameObject;
 		PUGameObject parentAsPUGameObject = o as PUGameObject;
 
-		if (parentAsGameObject != null) {
+	    if (parentAsPUGameObject != null)
+	    {
+	        var root = parentAsPUGameObject.Scope() as PUCanvas;
+
+	        if (root != null)
+	        {
+	            foreach (var variable in root.GetVariables())
+	            {
+	                mathParser.LocalVariables[variable.Name] = variable.Value;
+	            }
+	        }
+	    }
+
+        if (parentAsGameObject != null) {
 			rectTransform = parentAsGameObject.GetComponent<RectTransform> ();
 		}
 		else if (parentAsPUGameObject != null) {
@@ -123,7 +136,8 @@ public class PlanetUnityOverride {
 			}
 		}
 
-		evalStringBuilder.Length = 0;
+	    mathParser.usedTokens.Clear();
+        evalStringBuilder.Length = 0;
 		foreach (string part in parts) {
 			decimal result = (mathParser.Parse (part) * (decimal)multiplier);
 			if (appOverride != null) {
@@ -136,7 +150,7 @@ public class PlanetUnityOverride {
 		return evalStringBuilder.ToString ();
 	}
 
-	public static string processString(object o, string s)
+	public static string processString(object cur, object o, string s)
 	{
 		if (s == null)
 			return null;
@@ -159,6 +173,15 @@ public class PlanetUnityOverride {
 			string evalListString = s.Substring(6, s.Length-7);
 			s = evaluateString (evalListString, o, 1.0f);
 
+		    PUGameObject current = cur as PUGameObject;
+		    if (current != null)
+		    {
+		        foreach (var token in mathParser.usedTokens)
+		        {
+
+                    current.Canvas.GetVariable(token).AddListener(current);
+		        }
+		    }
 		} else if (s.StartsWith ("@dpi(")) {
 			string evalListString = s.Substring(5, s.Length-6);
 			s = evaluateString (evalListString, o, PlanetUnityOverride.screenDPI());

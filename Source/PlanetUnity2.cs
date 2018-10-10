@@ -26,7 +26,12 @@ interface IPlanetUnity2
 public class PlanetUnity2 {
 	public int baseRenderQueue = 0;
 
-	public enum TextAlignment {
+	public enum TextOverflowVertical {
+		truncate,
+		overflow,
+	};
+
+	public enum GridLayoutChildAlignment {
 		upperLeft,
 		upperCenter,
 		upperRight,
@@ -36,6 +41,11 @@ public class PlanetUnity2 {
 		lowerLeft,
 		lowerCenter,
 		lowerRight,
+	};
+
+	public enum TextOverflowHorizontal {
+		wrap,
+		overflow,
 	};
 
 	public enum CanvasRenderMode {
@@ -52,17 +62,7 @@ public class PlanetUnity2 {
 		aspectFilled,
 	};
 
-	public enum TextOverflowHorizontal {
-		wrap,
-		overflow,
-	};
-
-	public enum GridLayoutStartAxis {
-		horizontal,
-		vertical,
-	};
-
-	public enum GridLayoutChildAlignment {
+	public enum TextAlignment {
 		upperLeft,
 		upperCenter,
 		upperRight,
@@ -81,33 +81,32 @@ public class PlanetUnity2 {
 		boldAndItalic,
 	};
 
-	public enum InputFieldContentType {
-		standard,
-		autocorrected,
-		integer,
-		number,
-		alphanumeric,
-		name,
-		email,
-		password,
-		pin,
-		custom,
+	public enum InputFieldLineType {
+		single,
+		multiSubmit,
+		multiNewline,
 	};
 
-	public enum GridLayoutStartCorner {
-		upperLeft,
-		upperRight,
-		lowerLeft,
-		lowerRight,
+	public enum SliderDirection {
+		LeftToRight,
+		RightToLeft,
+		BottomToTop,
+		TopToBottom,
 	};
 
-	public enum AspectFitMode {
-		None,
-		WidthControlsHeight,
-		HeightControlsWidth,
-		FitInParent,
-		EnvelopeParent,
+	public enum GridLayoutStartAxis {
+		horizontal,
+		vertical,
 	};
+
+	public const string USERSTRINGINPUT = "UserStringInput";
+	public const string USERCHARINPUT = "UserCharInput";
+	public const string USERINPUTCANCELLED = "UserInputCancelled";
+	public const string BUTTONTOUCHDOWN = "ButtonTouchDown";
+	public const string BUTTONTOUCHUP = "ButtonTouchUp";
+	public const string EVENTWITHUNREGISTEREDCOLLIDER = "EventWithUnregisteredCollider";
+	public const string EVENTWITHNOCOLLIDER = "EventWithNoCollider";
+	public const string EDITORFILEDIDCHANGE = "EditorFileDidChange";
 
 	public enum ParticleEmitMode {
 		SystemNone,
@@ -126,31 +125,32 @@ public class PlanetUnity2 {
 		RectContactPointRule,
 	};
 
-	public const string USERSTRINGINPUT = "UserStringInput";
-	public const string USERCHARINPUT = "UserCharInput";
-	public const string USERINPUTCANCELLED = "UserInputCancelled";
-	public const string BUTTONTOUCHDOWN = "ButtonTouchDown";
-	public const string BUTTONTOUCHUP = "ButtonTouchUp";
-	public const string EVENTWITHUNREGISTEREDCOLLIDER = "EventWithUnregisteredCollider";
-	public const string EVENTWITHNOCOLLIDER = "EventWithNoCollider";
-	public const string EDITORFILEDIDCHANGE = "EditorFileDidChange";
-
-	public enum InputFieldLineType {
-		single,
-		multiSubmit,
-		multiNewline,
+	public enum GridLayoutStartCorner {
+		upperLeft,
+		upperRight,
+		lowerLeft,
+		lowerRight,
 	};
 
-	public enum SliderDirection {
-		LeftToRight,
-		RightToLeft,
-		BottomToTop,
-		TopToBottom,
+	public enum AspectFitMode {
+		None,
+		WidthControlsHeight,
+		HeightControlsWidth,
+		FitInParent,
+		EnvelopeParent,
 	};
 
-	public enum TextOverflowVertical {
-		truncate,
-		overflow,
+	public enum InputFieldContentType {
+		standard,
+		autocorrected,
+		integer,
+		number,
+		alphanumeric,
+		name,
+		email,
+		password,
+		pin,
+		custom,
 	};
 
 
@@ -199,7 +199,7 @@ public class PlanetUnity2 {
 
 				if (customBlock == null) {
 					entityObject.gaxb_load (element, rootEntity, args);
-					entityObject.gaxb_init ();
+                    entityObject.gaxb_init ();
 					entityObject.gaxb_final (element, rootEntity, args);
 				} else {
 					customBlock (entityObject, rootEntity, element);

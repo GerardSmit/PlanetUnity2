@@ -168,11 +168,17 @@ public class PUParticlesBase : PUCustomGeometry {
 
 
 	// XML Attributes
+	public string raw_systemName;
 	public string systemName;
+	public string raw_limitToInside;
 	public bool limitToInside;
+	public string raw_emitMode;
 	public PlanetUnity2.ParticleEmitMode? emitMode;
+	public string raw_adjustToFPS;
 	public bool adjustToFPS;
+	public string raw_customScale;
 	public Vector2? customScale;
+	public string raw_imageMaskPath;
 	public string imageMaskPath;
 
 
@@ -241,6 +247,42 @@ public class PUParticlesBase : PUCustomGeometry {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_systemName;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { systemName = unescape(attr); } 
+		
+		attr = raw_limitToInside;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "true"; }
+		if(attr != null) { limitToInside = bool.Parse(attr); } 
+		
+		attr = raw_emitMode;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "SystemScaled"; }
+		if(attr != null) { emitMode = (PlanetUnity2.ParticleEmitMode)Enum.Parse(typeof(PlanetUnity2.ParticleEmitMode), attr); } 
+		
+		attr = raw_adjustToFPS;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "true"; }
+		if(attr != null) { adjustToFPS = bool.Parse(attr); } 
+		
+		attr = raw_customScale;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { customScale = new Vector2().PUParse(attr); } 
+		
+		attr = raw_imageMaskPath;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { imageMaskPath = unescape(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -257,36 +299,13 @@ public class PUParticlesBase : PUCustomGeometry {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("systemName");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { systemName = unescape(attr); } 
-		
-		attr = element.GetAttribute("limitToInside");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "true"; }
-		if(attr != null) { limitToInside = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("emitMode");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "SystemScaled"; }
-		if(attr != null) { emitMode = (PlanetUnity2.ParticleEmitMode)Enum.Parse(typeof(PlanetUnity2.ParticleEmitMode), attr); } 
-		
-		attr = element.GetAttribute("adjustToFPS");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "true"; }
-		if(attr != null) { adjustToFPS = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("customScale");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { customScale = new Vector2().PUParse(attr); } 
-		
-		attr = element.GetAttribute("imageMaskPath");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { imageMaskPath = unescape(attr); } 
-		
-
+		raw_systemName = element.GetAttribute("systemName");		
+		raw_limitToInside = element.GetAttribute("limitToInside");		
+		raw_emitMode = element.GetAttribute("emitMode");		
+		raw_adjustToFPS = element.GetAttribute("adjustToFPS");		
+		raw_customScale = element.GetAttribute("customScale");		
+		raw_imageMaskPath = element.GetAttribute("imageMaskPath");		
+		gaxb_loadattrs();
 	}
 
 

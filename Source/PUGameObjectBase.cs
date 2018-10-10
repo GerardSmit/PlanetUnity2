@@ -30,9 +30,9 @@ public partial class PUGameObject : PUGameObjectBase {
 		if(attr != null) { rotation = new Vector3().PUParse(attr); } 
 		attr = "1,1,1";
 		if(attr != null) { scale = new Vector3().PUParse(attr); } 
-		attr = "0,0";
+		attr = "0,1";
 		if(attr != null) { pivot = new Vector2().PUParse(attr); } 
-		attr = "bottom,left";
+		attr = "top,left";
 		if(attr != null) { anchor = attr; } 
 		attr = "true";
 		if(attr != null) { active = bool.Parse(attr); } 
@@ -196,23 +196,41 @@ public class PUGameObjectBase : PUObject {
 
 
 	// XML Attributes
+	public string raw_bounds;
 	public Vector4? bounds;
+	public string raw_position;
 	public Vector3? position;
+	public string raw_size;
 	public Vector2? size;
+	public string raw_rotation;
 	public Vector3? rotation;
+	public string raw_scale;
 	public Vector3? scale;
+	public string raw_pivot;
 	public Vector2? pivot;
+	public string raw_anchor;
 	public string anchor;
+	public string raw_active;
 	public bool active;
+	public string raw_rectMask2D;
 	public bool rectMask2D;
+	public string raw_mask;
 	public bool mask;
+	public string raw_showMaskGraphic;
 	public bool showMaskGraphic;
+	public string raw_maskInset;
 	public Vector4? maskInset;
+	public string raw_outline;
 	public bool outline;
+	public string raw_lastY;
 	public float? lastY;
+	public string raw_lastX;
 	public float? lastX;
+	public string raw_shader;
 	public string shader;
+	public string raw_ignoreMouse;
 	public bool ignoreMouse;
+	public string raw_components;
 	public string components;
 
 
@@ -281,6 +299,95 @@ public class PUGameObjectBase : PUObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_bounds;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { bounds = new Vector4().PUParse(attr); } 
+		
+		attr = raw_position;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0,0,0"; }
+		if(attr != null) { position = new Vector3().PUParse(attr); } 
+		
+		attr = raw_size;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0,0"; }
+		if(attr != null) { size = new Vector2().PUParse(attr); } 
+		
+		attr = raw_rotation;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0,0,0"; }
+		if(attr != null) { rotation = new Vector3().PUParse(attr); } 
+		
+		attr = raw_scale;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "1,1,1"; }
+		if(attr != null) { scale = new Vector3().PUParse(attr); } 
+		
+		attr = raw_pivot;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0,1"; }
+		if(attr != null) { pivot = new Vector2().PUParse(attr); } 
+		
+		attr = raw_anchor;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "top,left"; }
+		if(attr != null) { anchor = unescape(attr); } 
+		
+		attr = raw_active;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "true"; }
+		if(attr != null) { active = bool.Parse(attr); } 
+		
+		attr = raw_rectMask2D;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { rectMask2D = bool.Parse(attr); } 
+		
+		attr = raw_mask;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { mask = bool.Parse(attr); } 
+		
+		attr = raw_showMaskGraphic;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "false"; }
+		if(attr != null) { showMaskGraphic = bool.Parse(attr); } 
+		
+		attr = raw_maskInset;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { maskInset = new Vector4().PUParse(attr); } 
+		
+		attr = raw_outline;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { outline = bool.Parse(attr); } 
+		
+		attr = raw_lastY;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { lastY = float.Parse(attr); } 
+		
+		attr = raw_lastX;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { lastX = float.Parse(attr); } 
+		
+		attr = raw_shader;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { shader = unescape(attr); } 
+		
+		attr = raw_ignoreMouse;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { ignoreMouse = bool.Parse(attr); } 
+		
+		attr = raw_components;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { components = unescape(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -297,89 +404,25 @@ public class PUGameObjectBase : PUObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("bounds");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { bounds = new Vector4().PUParse(attr); } 
-		
-		attr = element.GetAttribute("position");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0,0,0"; }
-		if(attr != null) { position = new Vector3().PUParse(attr); } 
-		
-		attr = element.GetAttribute("size");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0,0"; }
-		if(attr != null) { size = new Vector2().PUParse(attr); } 
-		
-		attr = element.GetAttribute("rotation");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0,0,0"; }
-		if(attr != null) { rotation = new Vector3().PUParse(attr); } 
-		
-		attr = element.GetAttribute("scale");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "1,1,1"; }
-		if(attr != null) { scale = new Vector3().PUParse(attr); } 
-		
-		attr = element.GetAttribute("pivot");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0,0"; }
-		if(attr != null) { pivot = new Vector2().PUParse(attr); } 
-		
-		attr = element.GetAttribute("anchor");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "bottom,left"; }
-		if(attr != null) { anchor = unescape(attr); } 
-		
-		attr = element.GetAttribute("active");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "true"; }
-		if(attr != null) { active = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("rectMask2D");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { rectMask2D = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("mask");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { mask = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("showMaskGraphic");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "false"; }
-		if(attr != null) { showMaskGraphic = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("maskInset");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { maskInset = new Vector4().PUParse(attr); } 
-		
-		attr = element.GetAttribute("outline");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { outline = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("lastY");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { lastY = float.Parse(attr); } 
-		
-		attr = element.GetAttribute("lastX");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { lastX = float.Parse(attr); } 
-		
-		attr = element.GetAttribute("shader");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { shader = unescape(attr); } 
-		
-		attr = element.GetAttribute("ignoreMouse");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { ignoreMouse = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("components");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { components = unescape(attr); } 
-		
-
+		raw_bounds = element.GetAttribute("bounds");		
+		raw_position = element.GetAttribute("position");		
+		raw_size = element.GetAttribute("size");		
+		raw_rotation = element.GetAttribute("rotation");		
+		raw_scale = element.GetAttribute("scale");		
+		raw_pivot = element.GetAttribute("pivot");		
+		raw_anchor = element.GetAttribute("anchor");		
+		raw_active = element.GetAttribute("active");		
+		raw_rectMask2D = element.GetAttribute("rectMask2D");		
+		raw_mask = element.GetAttribute("mask");		
+		raw_showMaskGraphic = element.GetAttribute("showMaskGraphic");		
+		raw_maskInset = element.GetAttribute("maskInset");		
+		raw_outline = element.GetAttribute("outline");		
+		raw_lastY = element.GetAttribute("lastY");		
+		raw_lastX = element.GetAttribute("lastX");		
+		raw_shader = element.GetAttribute("shader");		
+		raw_ignoreMouse = element.GetAttribute("ignoreMouse");		
+		raw_components = element.GetAttribute("components");		
+		gaxb_loadattrs();
 	}
 
 

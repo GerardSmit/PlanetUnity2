@@ -158,9 +158,13 @@ public class PUScrollRectBase : PUGameObject {
 
 
 	// XML Attributes
+	public string raw_inertia;
 	public bool inertia;
+	public string raw_horizontal;
 	public bool horizontal;
+	public string raw_vertical;
 	public bool vertical;
+	public string raw_scrollWheelSensitivity;
 	public float? scrollWheelSensitivity;
 
 
@@ -229,6 +233,35 @@ public class PUScrollRectBase : PUGameObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_inertia;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "true"; }
+		if(attr != null) { inertia = bool.Parse(attr); } 
+		
+		attr = raw_horizontal;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "false"; }
+		if(attr != null) { horizontal = bool.Parse(attr); } 
+		
+		attr = raw_vertical;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "true"; }
+		if(attr != null) { vertical = bool.Parse(attr); } 
+		
+		attr = raw_scrollWheelSensitivity;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0"; }
+		if(attr != null) { scrollWheelSensitivity = float.Parse(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -245,29 +278,11 @@ public class PUScrollRectBase : PUGameObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("inertia");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "true"; }
-		if(attr != null) { inertia = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("horizontal");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "false"; }
-		if(attr != null) { horizontal = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("vertical");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "true"; }
-		if(attr != null) { vertical = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("scrollWheelSensitivity");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0"; }
-		if(attr != null) { scrollWheelSensitivity = float.Parse(attr); } 
-		
-
+		raw_inertia = element.GetAttribute("inertia");		
+		raw_horizontal = element.GetAttribute("horizontal");		
+		raw_vertical = element.GetAttribute("vertical");		
+		raw_scrollWheelSensitivity = element.GetAttribute("scrollWheelSensitivity");		
+		gaxb_loadattrs();
 	}
 
 

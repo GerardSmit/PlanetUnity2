@@ -197,6 +197,13 @@ public class PUTableBase : PUScrollRect {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -213,7 +220,7 @@ public class PUTableBase : PUScrollRect {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
+		gaxb_loadattrs();
 	}
 
 

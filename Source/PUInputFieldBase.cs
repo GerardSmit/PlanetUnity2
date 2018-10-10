@@ -201,11 +201,17 @@ public class PUInputFieldBase : PUText {
 
 
 	// XML Attributes
+	public string raw_onValueChanged;
 	public string onValueChanged;
+	public string raw_placeholder;
 	public string placeholder;
+	public string raw_limit;
 	public int? limit;
+	public string raw_contentType;
 	public PlanetUnity2.InputFieldContentType? contentType;
+	public string raw_lineType;
 	public PlanetUnity2.InputFieldLineType? lineType;
+	public string raw_selectionColor;
 	public Color? selectionColor;
 
 
@@ -274,6 +280,39 @@ public class PUInputFieldBase : PUText {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_onValueChanged;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { onValueChanged = unescape(attr); } 
+		
+		attr = raw_placeholder;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { placeholder = unescape(attr); } 
+		
+		attr = raw_limit;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { limit = (int)float.Parse(attr); } 
+		
+		attr = raw_contentType;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { contentType = (PlanetUnity2.InputFieldContentType)Enum.Parse(typeof(PlanetUnity2.InputFieldContentType), attr); } 
+		
+		attr = raw_lineType;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { lineType = (PlanetUnity2.InputFieldLineType)Enum.Parse(typeof(PlanetUnity2.InputFieldLineType), attr); } 
+		
+		attr = raw_selectionColor;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { selectionColor = new Color().PUParse(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -290,33 +329,13 @@ public class PUInputFieldBase : PUText {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("onValueChanged");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { onValueChanged = unescape(attr); } 
-		
-		attr = element.GetAttribute("placeholder");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { placeholder = unescape(attr); } 
-		
-		attr = element.GetAttribute("limit");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { limit = (int)float.Parse(attr); } 
-		
-		attr = element.GetAttribute("contentType");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { contentType = (PlanetUnity2.InputFieldContentType)Enum.Parse(typeof(PlanetUnity2.InputFieldContentType), attr); } 
-		
-		attr = element.GetAttribute("lineType");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { lineType = (PlanetUnity2.InputFieldLineType)Enum.Parse(typeof(PlanetUnity2.InputFieldLineType), attr); } 
-		
-		attr = element.GetAttribute("selectionColor");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { selectionColor = new Color().PUParse(attr); } 
-		
-
+		raw_onValueChanged = element.GetAttribute("onValueChanged");		
+		raw_placeholder = element.GetAttribute("placeholder");		
+		raw_limit = element.GetAttribute("limit");		
+		raw_contentType = element.GetAttribute("contentType");		
+		raw_lineType = element.GetAttribute("lineType");		
+		raw_selectionColor = element.GetAttribute("selectionColor");		
+		gaxb_loadattrs();
 	}
 
 

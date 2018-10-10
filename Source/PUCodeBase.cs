@@ -140,7 +140,9 @@ public class PUCodeBase : PUGameObject {
 
 
 	// XML Attributes
+	public string raw__class;
 	public string _class;
+	public string raw_singleton;
 	public bool singleton;
 
 
@@ -213,6 +215,24 @@ public class PUCodeBase : PUGameObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw__class;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { _class = unescape(attr); } 
+		
+		attr = raw_singleton;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "false"; }
+		if(attr != null) { singleton = bool.Parse(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -229,18 +249,9 @@ public class PUCodeBase : PUGameObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("class");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { _class = unescape(attr); } 
-		
-		attr = element.GetAttribute("singleton");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "false"; }
-		if(attr != null) { singleton = bool.Parse(attr); } 
-		
-
+		raw__class = element.GetAttribute("class");		
+		raw_singleton = element.GetAttribute("singleton");		
+		gaxb_loadattrs();
 	}
 
 

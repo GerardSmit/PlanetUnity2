@@ -210,18 +210,31 @@ public class PUTextBase : PUGameObject {
 
 
 	// XML Attributes
+	public string raw_font;
 	public string font;
+	public string raw_fontSize;
 	public int? fontSize;
+	public string raw_fontStyle;
 	public PlanetUnity2.FontStyle? fontStyle;
+	public string raw_fontColor;
 	public Color? fontColor;
+	public string raw_lineSpacing;
 	public float? lineSpacing;
+	public string raw_alignment;
 	public PlanetUnity2.TextAlignment? alignment;
+	public string raw_value;
 	public string value;
+	public string raw_sizeToFit;
 	public bool sizeToFit;
+	public string raw_maxFontSize;
 	public int? maxFontSize;
+	public string raw_minFontSize;
 	public int? minFontSize;
+	public string raw_vOverflow;
 	public bool vOverflow;
+	public string raw_hOverflow;
 	public bool hOverflow;
+	public string raw_onLinkClick;
 	public string onLinkClick;
 
 
@@ -290,6 +303,70 @@ public class PUTextBase : PUGameObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_font;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { font = unescape(attr); } 
+		
+		attr = raw_fontSize;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "12"; }
+		if(attr != null) { fontSize = (int)float.Parse(attr); } 
+		
+		attr = raw_fontStyle;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { fontStyle = (PlanetUnity2.FontStyle)Enum.Parse(typeof(PlanetUnity2.FontStyle), attr); } 
+		
+		attr = raw_fontColor;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0,0,0,1"; }
+		if(attr != null) { fontColor = new Color().PUParse(attr); } 
+		
+		attr = raw_lineSpacing;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { lineSpacing = float.Parse(attr); } 
+		
+		attr = raw_alignment;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "middleCenter"; }
+		if(attr != null) { alignment = (PlanetUnity2.TextAlignment)Enum.Parse(typeof(PlanetUnity2.TextAlignment), attr); } 
+		
+		attr = raw_value;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { value = unescape(attr); } 
+		
+		attr = raw_sizeToFit;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { sizeToFit = bool.Parse(attr); } 
+		
+		attr = raw_maxFontSize;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { maxFontSize = (int)float.Parse(attr); } 
+		
+		attr = raw_minFontSize;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { minFontSize = (int)float.Parse(attr); } 
+		
+		attr = raw_vOverflow;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { vOverflow = bool.Parse(attr); } 
+		
+		attr = raw_hOverflow;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { hOverflow = bool.Parse(attr); } 
+		
+		attr = raw_onLinkClick;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { onLinkClick = unescape(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -306,64 +383,20 @@ public class PUTextBase : PUGameObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("font");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { font = unescape(attr); } 
-		
-		attr = element.GetAttribute("fontSize");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "12"; }
-		if(attr != null) { fontSize = (int)float.Parse(attr); } 
-		
-		attr = element.GetAttribute("fontStyle");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { fontStyle = (PlanetUnity2.FontStyle)Enum.Parse(typeof(PlanetUnity2.FontStyle), attr); } 
-		
-		attr = element.GetAttribute("fontColor");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0,0,0,1"; }
-		if(attr != null) { fontColor = new Color().PUParse(attr); } 
-		
-		attr = element.GetAttribute("lineSpacing");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { lineSpacing = float.Parse(attr); } 
-		
-		attr = element.GetAttribute("alignment");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "middleCenter"; }
-		if(attr != null) { alignment = (PlanetUnity2.TextAlignment)Enum.Parse(typeof(PlanetUnity2.TextAlignment), attr); } 
-		
-		attr = element.GetAttribute("value");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { value = unescape(attr); } 
-		
-		attr = element.GetAttribute("sizeToFit");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { sizeToFit = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("maxFontSize");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { maxFontSize = (int)float.Parse(attr); } 
-		
-		attr = element.GetAttribute("minFontSize");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { minFontSize = (int)float.Parse(attr); } 
-		
-		attr = element.GetAttribute("vOverflow");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { vOverflow = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("hOverflow");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { hOverflow = bool.Parse(attr); } 
-		
-		attr = element.GetAttribute("onLinkClick");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { onLinkClick = unescape(attr); } 
-		
-
+		raw_font = element.GetAttribute("font");		
+		raw_fontSize = element.GetAttribute("fontSize");		
+		raw_fontStyle = element.GetAttribute("fontStyle");		
+		raw_fontColor = element.GetAttribute("fontColor");		
+		raw_lineSpacing = element.GetAttribute("lineSpacing");		
+		raw_alignment = element.GetAttribute("alignment");		
+		raw_value = element.GetAttribute("value");		
+		raw_sizeToFit = element.GetAttribute("sizeToFit");		
+		raw_maxFontSize = element.GetAttribute("maxFontSize");		
+		raw_minFontSize = element.GetAttribute("minFontSize");		
+		raw_vOverflow = element.GetAttribute("vOverflow");		
+		raw_hOverflow = element.GetAttribute("hOverflow");		
+		raw_onLinkClick = element.GetAttribute("onLinkClick");		
+		gaxb_loadattrs();
 	}
 
 

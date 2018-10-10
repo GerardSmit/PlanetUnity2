@@ -138,8 +138,11 @@ public class PUImageBase : PUGameObject {
 
 
 	// XML Attributes
+	public string raw_resourcePath;
 	public string resourcePath;
+	public string raw_color;
 	public Color? color;
+	public string raw_type;
 	public PlanetUnity2.ImageType? type;
 
 
@@ -208,6 +211,27 @@ public class PUImageBase : PUGameObject {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_resourcePath;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { resourcePath = unescape(attr); } 
+		
+		attr = raw_color;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { color = new Color().PUParse(attr); } 
+		
+		attr = raw_type;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { type = (PlanetUnity2.ImageType)Enum.Parse(typeof(PlanetUnity2.ImageType), attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -224,21 +248,10 @@ public class PUImageBase : PUGameObject {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("resourcePath");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { resourcePath = unescape(attr); } 
-		
-		attr = element.GetAttribute("color");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { color = new Color().PUParse(attr); } 
-		
-		attr = element.GetAttribute("type");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { type = (PlanetUnity2.ImageType)Enum.Parse(typeof(PlanetUnity2.ImageType), attr); } 
-		
-
+		raw_resourcePath = element.GetAttribute("resourcePath");		
+		raw_color = element.GetAttribute("color");		
+		raw_type = element.GetAttribute("type");		
+		gaxb_loadattrs();
 	}
 
 

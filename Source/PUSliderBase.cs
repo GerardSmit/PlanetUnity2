@@ -186,12 +186,19 @@ public class PUSliderBase : PUImage {
 
 
 	// XML Attributes
+	public string raw_handleResourcePath;
 	public string handleResourcePath;
+	public string raw_handleSize;
 	public Vector2? handleSize;
+	public string raw_fillResourcePath;
 	public string fillResourcePath;
+	public string raw_onValueChanged;
 	public string onValueChanged;
+	public string raw_minValue;
 	public float? minValue;
+	public string raw_maxValue;
 	public float? maxValue;
+	public string raw_direction;
 	public PlanetUnity2.SliderDirection? direction;
 
 
@@ -260,6 +267,46 @@ public class PUSliderBase : PUImage {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_handleResourcePath;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { handleResourcePath = unescape(attr); } 
+		
+		attr = raw_handleSize;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "32,32"; }
+		if(attr != null) { handleSize = new Vector2().PUParse(attr); } 
+		
+		attr = raw_fillResourcePath;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { fillResourcePath = unescape(attr); } 
+		
+		attr = raw_onValueChanged;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { onValueChanged = unescape(attr); } 
+		
+		attr = raw_minValue;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "0"; }
+		if(attr != null) { minValue = float.Parse(attr); } 
+		
+		attr = raw_maxValue;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr == null) { attr = "1"; }
+		if(attr != null) { maxValue = float.Parse(attr); } 
+		
+		attr = raw_direction;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { direction = (PlanetUnity2.SliderDirection)Enum.Parse(typeof(PlanetUnity2.SliderDirection), attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -276,40 +323,14 @@ public class PUSliderBase : PUImage {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("handleResourcePath");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { handleResourcePath = unescape(attr); } 
-		
-		attr = element.GetAttribute("handleSize");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "32,32"; }
-		if(attr != null) { handleSize = new Vector2().PUParse(attr); } 
-		
-		attr = element.GetAttribute("fillResourcePath");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { fillResourcePath = unescape(attr); } 
-		
-		attr = element.GetAttribute("onValueChanged");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { onValueChanged = unescape(attr); } 
-		
-		attr = element.GetAttribute("minValue");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "0"; }
-		if(attr != null) { minValue = float.Parse(attr); } 
-		
-		attr = element.GetAttribute("maxValue");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr == null) { attr = "1"; }
-		if(attr != null) { maxValue = float.Parse(attr); } 
-		
-		attr = element.GetAttribute("direction");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { direction = (PlanetUnity2.SliderDirection)Enum.Parse(typeof(PlanetUnity2.SliderDirection), attr); } 
-		
-
+		raw_handleResourcePath = element.GetAttribute("handleResourcePath");		
+		raw_handleSize = element.GetAttribute("handleSize");		
+		raw_fillResourcePath = element.GetAttribute("fillResourcePath");		
+		raw_onValueChanged = element.GetAttribute("onValueChanged");		
+		raw_minValue = element.GetAttribute("minValue");		
+		raw_maxValue = element.GetAttribute("maxValue");		
+		raw_direction = element.GetAttribute("direction");		
+		gaxb_loadattrs();
 	}
 
 

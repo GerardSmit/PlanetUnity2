@@ -165,10 +165,15 @@ public class PUImageButtonBase : PUImage {
 
 
 	// XML Attributes
+	public string raw_pressedResourcePath;
 	public string pressedResourcePath;
+	public string raw_highlightedResourcePath;
 	public string highlightedResourcePath;
+	public string raw_disabledResourcePath;
 	public string disabledResourcePath;
+	public string raw_onTouchUp;
 	public string onTouchUp;
+	public string raw_onTouchDown;
 	public string onTouchDown;
 
 
@@ -237,6 +242,35 @@ public class PUImageButtonBase : PUImage {
 		return returnString;
 	}
 
+	public override void gaxb_loadattrs()
+	{
+		base.gaxb_loadattrs();
+
+
+		string attr;
+		attr = raw_pressedResourcePath;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { pressedResourcePath = unescape(attr); } 
+		
+		attr = raw_highlightedResourcePath;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { highlightedResourcePath = unescape(attr); } 
+		
+		attr = raw_disabledResourcePath;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { disabledResourcePath = unescape(attr); } 
+		
+		attr = raw_onTouchUp;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { onTouchUp = unescape(attr); } 
+		
+		attr = raw_onTouchDown;
+		if(attr != null) { attr = PlanetUnityOverride.processString(this, parent, attr); }
+		if(attr != null) { onTouchDown = unescape(attr); } 
+		
+
+	}
+
 	public override void gaxb_load(TBXMLElement element, object _parent, Hashtable args)
 	{
 		base.gaxb_load(element, _parent, args);
@@ -253,29 +287,12 @@ public class PUImageButtonBase : PUImage {
 
 		//xmlns = element.GetAttribute("xmlns");
 
-
-		string attr;
-		attr = element.GetAttribute("pressedResourcePath");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { pressedResourcePath = unescape(attr); } 
-		
-		attr = element.GetAttribute("highlightedResourcePath");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { highlightedResourcePath = unescape(attr); } 
-		
-		attr = element.GetAttribute("disabledResourcePath");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { disabledResourcePath = unescape(attr); } 
-		
-		attr = element.GetAttribute("onTouchUp");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { onTouchUp = unescape(attr); } 
-		
-		attr = element.GetAttribute("onTouchDown");
-		if(attr != null) { attr = PlanetUnityOverride.processString(_parent, attr); }
-		if(attr != null) { onTouchDown = unescape(attr); } 
-		
-
+		raw_pressedResourcePath = element.GetAttribute("pressedResourcePath");		
+		raw_highlightedResourcePath = element.GetAttribute("highlightedResourcePath");		
+		raw_disabledResourcePath = element.GetAttribute("disabledResourcePath");		
+		raw_onTouchUp = element.GetAttribute("onTouchUp");		
+		raw_onTouchDown = element.GetAttribute("onTouchDown");		
+		gaxb_loadattrs();
 	}
 
 
